@@ -3,7 +3,7 @@
 $doel = '/index.php';
 
 $paginatitel = 'Pagina verplaatst';
-require __DIR__ . '/../includes/header.php';
+require __DIR__ . '/includes/header.php';
 ?>
 
 <h1 class="paginakop">Deze pagina is verplaatst</h1>
@@ -15,4 +15,4 @@ require __DIR__ . '/../includes/header.php';
 
 <script>setTimeout(function () { window.location.href = <?= json_encode($doel) ?>; }, 3000);</script>
 
-<?php require __DIR__ . '/../includes/footer.php'; ?>
+<?php require __DIR__ . '/includes/footer.php'; ?>
