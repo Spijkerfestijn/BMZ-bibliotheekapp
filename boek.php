@@ -84,7 +84,7 @@ require __DIR__ . '/includes/header.php';
             <?php endif; ?>
         </details>
 
-        <?php $auteurs = array_filter(array_map('trim', explode(';', $boek['Auteur'] ?? ''))); ?>
+        <?php $auteurs = array_filter(array_map('trim', preg_split('/\s*(?:;|,|&|\ben\b)\s*/i', (string) ($boek['Auteur'] ?? '')))); ?>
 
         <div class="knoppen">
             <?php foreach ($auteurs as $auteur): ?>
