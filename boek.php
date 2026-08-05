@@ -84,7 +84,12 @@ require __DIR__ . '/includes/header.php';
             <?php endif; ?>
         </details>
 
+        <?php $auteurs = array_filter(array_map('trim', explode(';', $boek['Auteur'] ?? ''))); ?>
+
         <div class="knoppen">
+            <?php foreach ($auteurs as $auteur): ?>
+                <a class="btn" href="/index.php?q=<?= urlencode($auteur) ?>">Meer van <?= htmlspecialchars($auteur) ?></a>
+            <?php endforeach; ?>
             <a class="btn btn-beheer" href="<?= htmlspecialchars(boekwinkeltjes_zoek_url($boek['Titel'], $boek['Auteur'] ?: '')) ?>" target="_blank" rel="noopener">Zoek op Boekwinkeltjes.nl (prijsbepaling)</a>
             <a class="btn btn-terug" href="<?= htmlspecialchars($terugUrl) ?>">&larr; Terug naar zoekresultaten</a>
         </div>
