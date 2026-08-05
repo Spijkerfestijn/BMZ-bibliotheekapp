@@ -13,7 +13,7 @@ if ($zoekstr !== '') {
     $resultaten = zoek_boeken(db_connect(), $zoekstr);
     $totaalResultaten = count($resultaten);
     foreach ($resultaten as $boek) {
-        $navigatieUrls[] = "/boek.php?id={$boek['Boek_id']}";
+        $navigatieUrls[] = "/boek.php?id={$boek['Boek_id']}&q=" . urlencode($zoekstr);
     }
 }
 
@@ -31,7 +31,7 @@ require __DIR__ . '/includes/header.php';
     <ul class="resultatenlijst boekenlijst">
         <?php foreach ($resultaten as $boek): ?>
             <li>
-                <a href="/boek.php?id=<?= (int) $boek['Boek_id'] ?>">
+                <a href="/boek.php?id=<?= (int) $boek['Boek_id'] ?>&q=<?= urlencode($zoekstr) ?>">
                     <?php $kaftUrl = kaft_afbeelding_url($boek['Afbeelding'] ?? null); ?>
                     <?php if ($kaftUrl !== null): ?>
                         <img class="thumb" src="<?= htmlspecialchars($kaftUrl) ?>" alt="" loading="lazy">

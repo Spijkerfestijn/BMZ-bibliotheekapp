@@ -322,6 +322,39 @@ table.gegevens a {
     color: var(--kleur-accent-donker);
 }
 
+.btn-beheer {
+    background: var(--kleur-achtergrond);
+    border: 1px dashed var(--kleur-primair);
+    color: var(--kleur-primair);
+    font-size: 0.9rem;
+}
+
+.beheer-blok {
+    margin: 1.25rem 0;
+    padding: 0.5rem 0.75rem;
+    border: 1px dashed var(--kleur-rand);
+    border-radius: 6px;
+}
+
+.beheer-blok summary {
+    cursor: pointer;
+    list-style: none;
+}
+
+.beheer-blok summary::-webkit-details-marker {
+    display: none;
+}
+
+.beheer-blok[open] summary {
+    margin-bottom: 0.5rem;
+}
+
+.beheer-blok p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: #555;
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         --kleur-tekst: #eee;

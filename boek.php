@@ -5,6 +5,9 @@ require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/includes/search.php';
 
 $boekId = (int) ($_GET['id'] ?? 0);
+$zoekstr = trim($_GET['q'] ?? '');
+$terugUrl = '/index.php' . ($zoekstr !== '' ? '?q=' . urlencode($zoekstr) : '');
+
 $pdo = db_connect();
 $boek = $boekId > 0 ? haal_boek($pdo, $boekId) : null;
 
@@ -15,7 +18,7 @@ require __DIR__ . '/includes/header.php';
 <?php if ($boek === null): ?>
     <p class="hint">Dit boek kon niet worden gevonden.</p>
     <div class="knoppen">
-        <a class="btn btn-terug" href="javascript:history.back()">&larr; Terug naar zoekresultaten</a>
+        <a class="btn btn-terug" href="<?= htmlspecialchars($terugUrl) ?>">&larr; Terug naar zoekresultaten</a>
     </div>
 <?php else: ?>
     <article>
@@ -66,17 +69,23 @@ require __DIR__ . '/includes/header.php';
         <?php endif; ?>
 
         <?php $exemplaren = andere_exemplaren($pdo, (int) ($boek['Basecode'] ?? 0), (int) $boek['Boek_id']); ?>
-        <?php if ($exemplaren !== []): ?>
-            <h2>Andere exemplaren van dit boek</h2>
+
+        <details class="beheer-blok">
+            <summary class="btn btn-beheer">Aantal exemplaren &amp; locatie</summary>
+            <p>
+                Dit boek is <b><?= count($exemplaren) + 1 ?>&times;</b> geregistreerd<?= (int) ($boek['Basecode'] ?? 0) > 0 ? ' (basecode ' . (int) $boek['Basecode'] . ')' : ' (geen basecode bekend, dus mogelijk niet alle exemplaren gevonden)' ?>:
+            </p>
             <ul class="exemplarenlijst">
+                <li><?= htmlspecialchars($boek['Opslag'] ?: 'onbekend') ?> &mdash; dit exemplaar (<?= htmlspecialchars((string) $boek['Boek_id']) ?>)</li>
                 <?php foreach ($exemplaren as $exemplaar): ?>
-                    <li><a href="/boek.php?id=<?= (int) $exemplaar['Boek_id'] ?>">Opslag: <?= htmlspecialchars($exemplaar['Opslag'] ?: 'onbekend') ?></a></li>
+                    <li><a href="/boek.php?id=<?= (int) $exemplaar['Boek_id'] ?>&q=<?= urlencode($zoekstr) ?>"><?= htmlspecialchars($exemplaar['Opslag'] ?: 'onbekend') ?> &mdash; <?= htmlspecialchars((string) $exemplaar['Boek_id']) ?></a></li>
                 <?php endforeach; ?>
             </ul>
-        <?php endif; ?>
+        </details>
 
         <div class="knoppen">
-            <a class="btn btn-terug" href="javascript:history.back()">&larr; Terug naar zoekresultaten</a>
+            <a class="btn btn-beheer" href="<?= htmlspecialchars(boekwinkeltjes_zoek_url($boek['Titel'], $boek['Auteur'] ?: '')) ?>" target="_blank" rel="noopener">Zoek op Boekwinkeltjes.nl (prijsbepaling)</a>
+            <a class="btn btn-terug" href="<?= htmlspecialchars($terugUrl) ?>">&larr; Terug naar zoekresultaten</a>
         </div>
     </article>
 

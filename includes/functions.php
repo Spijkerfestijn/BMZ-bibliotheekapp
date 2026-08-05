@@ -75,6 +75,11 @@ function isbn_zoek_url(?string $isbn, string $titel, string $auteur): string
     return 'https://www.worldcat.org/search?q=' . urlencode(trim($titel . ' ' . $auteur)) . '&qt=owc_search';
 }
 
+function boekwinkeltjes_zoek_url(string $titel, string $auteur): string
+{
+    return 'https://www.boekwinkeltjes.nl/s/?q=' . urlencode(trim($titel . ' ' . $auteur)) . '&t=1&n=1';
+}
+
 function uitgeleend(array $boek): bool
 {
     return (int) ($boek['Naw_id'] ?? 0) > 1;
