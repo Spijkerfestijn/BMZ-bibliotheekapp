@@ -1,0 +1,48 @@
+<?php
+
+const ZOEK_LIMIT = 200;
+
+function zoek_boeken(PDO $pdo, string $tekst): array
+{
+    $kolommen = "Boek_id, Titel, Sub_titel, Auteur, Groepering, Opslag, Taal, ISBN13,
+                 Serie_naam, Volgnr, Naw_id";
+    $w = "%$tekst%";
+
+    $sql = "SELECT $kolommen FROM jos_BIEB_boeken
+            WHERE Duplicaat <> 'J' AND (
+                Auteur LIKE ? OR Omschrijving LIKE ? OR Opslag LIKE ? OR Titel LIKE ?
+                OR Sub_titel LIKE ? OR Groepering LIKE ? OR Steekwoorden LIKE ?
+            )
+            ORDER BY Serie_naam, Volgnr, Auteur, Titel
+            LIMIT " . ZOEK_LIMIT;
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$w, $w, $w, $w, $w, $w, $w]);
+
+    return $stmt->fetchAll();
+}
+
+function haal_boek(PDO $pdo, int $boekId): ?array
+{
+    $stmt = $pdo->prepare("SELECT * FROM jos_BIEB_boeken WHERE Boek_id = ? LIMIT 1");
+    $stmt->execute([$boekId]);
+    $row = $stmt->fetch();
+
+    return $row === false ? null : $row;
+}
+
+function andere_exemplaren(PDO $pdo, int $basecode, int $huidigBoekId): array
+{
+    if ($basecode <= 0) {
+        return [];
+    }
+
+    $stmt = $pdo->prepare(
+        "SELECT Boek_id, Opslag FROM jos_BIEB_boeken
+         WHERE Basecode = ? AND Boek_id <> ? AND Duplicaat <> 'J'
+         ORDER BY Opslag"
+    );
+    $stmt->execute([$basecode, $huidigBoekId]);
+
+    return $stmt->fetchAll();
+}

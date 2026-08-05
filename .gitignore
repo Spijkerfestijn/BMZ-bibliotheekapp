@@ -1,0 +1,15 @@
+config.php
+*.log
+.DS_Store
+Thumbs.db
+
+# hostingmap-artefacten (cPanel), niet onderdeel van de app
+.cagefs/
+.clwpos/
+.well-known/
+
+# bronmateriaal oude site (bevat hardcoded db-credentials, niet in git)
+oud/
+
+# database dump, nooit in git
+*.sql

@@ -1,0 +1,256 @@
+:root {
+    --kleur-primair: #2c3e50;
+    --kleur-accent: #ff9a00;
+    --kleur-accent-donker: #cc7a00;
+    --kleur-rand: #d8d8d8;
+    --kleur-tekst: #222;
+    --kleur-achtergrond: #fff;
+    --kleur-groen: #1d9e75;
+    --kleur-rood: #a32d2d;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    color: var(--kleur-tekst);
+    background: var(--kleur-achtergrond);
+    line-height: 1.45;
+    padding-bottom: 3rem;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    background: #fff;
+    border-bottom: 3px solid var(--kleur-accent);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.site-logo img {
+    height: 28px;
+    display: block;
+}
+
+main {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.paginakop {
+    font-size: 1.2rem;
+    margin: 0 0 0.75rem;
+}
+
+.zoekform {
+    display: flex;
+    gap: 0.4rem;
+    margin: 0;
+    flex: 1;
+}
+
+.zoekform input[type="search"] {
+    flex: 1;
+    min-width: 0;
+    padding: 0.45rem 0.6rem;
+    font-size: 0.95rem;
+    border: 1px solid var(--kleur-rand);
+    border-radius: 6px;
+}
+
+.zoekform button {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    background: var(--kleur-accent);
+    color: var(--kleur-primair);
+    border: none;
+    border-radius: 6px;
+}
+
+.site-footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    background: var(--kleur-primair);
+    color: #fff;
+    text-align: center;
+    font-size: 0.85rem;
+    padding: 0.6rem 1rem calc(0.6rem + env(safe-area-inset-bottom));
+}
+
+.hint {
+    color: #555;
+}
+
+.resultatenlijst {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.resultatenlijst li {
+    border-bottom: 1px solid var(--kleur-rand);
+}
+
+.boekenlijst a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0.25rem;
+    text-decoration: none;
+    color: var(--kleur-tekst);
+}
+
+.boekenlijst .naam-wrap {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.boekenlijst .serie {
+    font-size: 0.8rem;
+    color: var(--kleur-accent-donker);
+    font-weight: 600;
+}
+
+.boekenlijst .naam {
+    font-weight: 600;
+}
+
+.boekenlijst .subtitel {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #555;
+}
+
+.boekenlijst .auteur {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.boek-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    flex-shrink: 0;
+}
+
+.boek-meta .vlag {
+    width: 20px;
+    height: 14px;
+    object-fit: cover;
+}
+
+.boek-meta .opslag {
+    font-size: 0.8rem;
+    color: #555;
+}
+
+.status {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+}
+
+.status-in {
+    color: var(--kleur-groen);
+    background: color-mix(in srgb, var(--kleur-groen) 12%, transparent);
+}
+
+.status-uit {
+    color: var(--kleur-rood);
+    background: color-mix(in srgb, var(--kleur-rood) 12%, transparent);
+}
+
+article .serie {
+    font-size: 0.85rem;
+    color: var(--kleur-accent-donker);
+    font-weight: 600;
+    margin: 0;
+}
+
+article h1 {
+    font-size: 1.3rem;
+    margin: 0.15rem 0 0.25rem;
+}
+
+article .subtitel {
+    font-style: italic;
+    color: #555;
+    margin: 0 0 0.75rem;
+}
+
+.kaft {
+    max-width: 100%;
+    max-height: 320px;
+    display: block;
+    margin: 0 auto 1rem;
+    border: 1px solid var(--kleur-rand);
+    border-radius: 4px;
+}
+
+main h2 {
+    font-size: 1.05rem;
+    margin: 1.25rem 0 0.4rem;
+    color: var(--kleur-primair);
+}
+
+table.gegevens {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0;
+}
+
+table.gegevens td {
+    padding: 0.4rem 0.25rem;
+    border-bottom: 1px solid var(--kleur-rand);
+    vertical-align: top;
+}
+
+table.gegevens td:first-child {
+    font-weight: 600;
+    width: 35%;
+    color: #444;
+}
+
+table.gegevens a {
+    color: var(--kleur-accent-donker);
+    font-weight: 600;
+}
+
+.omschrijving {
+    margin: 1rem 0;
+}
+
+.exemplarenlijst {
+    padding-left: 1.25rem;
+}
+
+.exemplarenlijst a {
+    color: var(--kleur-accent-donker);
+    font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --kleur-tekst: #eee;
+        --kleur-achtergrond: #1b1b1b;
+        --kleur-rand: #3a3a3a;
+        --kleur-accent-donker: #ffb84d;
+    }
+
+    .boekenlijst a { color: var(--kleur-tekst); }
+}
