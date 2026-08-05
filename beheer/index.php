@@ -1,16 +1,16 @@
 <?php
 
-$doel = 'https://beheerbieb.bevrijdingsmuseumzeeland.nl/';
+$doel = '/index.php';
 
-$paginatitel = 'Beheeromgeving verplaatst';
+$paginatitel = 'Pagina verplaatst';
 require __DIR__ . '/../includes/header.php';
 ?>
 
-<h1 class="paginakop">Deze site is verplaatst</h1>
-<p class="hint">U wordt over enkele seconden automatisch doorgestuurd naar de beheeromgeving.</p>
+<h1 class="paginakop">Deze pagina is verplaatst</h1>
+<p class="hint">De beheerfunctionaliteit is hier komen te vervallen. U wordt over enkele seconden doorgestuurd naar de bibliotheek.</p>
 
 <div class="knoppen">
-    <a class="btn" href="<?= htmlspecialchars($doel) ?>">Ga direct naar de beheeromgeving</a>
+    <a class="btn" href="<?= htmlspecialchars($doel) ?>">Ga direct naar de bibliotheek</a>
 </div>
 
 <script>setTimeout(function () { window.location.href = <?= json_encode($doel) ?>; }, 3000);</script>
