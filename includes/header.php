@@ -9,6 +9,7 @@
 <title><?= htmlspecialchars($paginatitel ?? 'Bibliotheek Bevrijdingsmuseum Zeeland') ?></title>
 <link rel="icon" href="/favicon.ico">
 <link rel="stylesheet" href="/css/style.css?v=<?= @filemtime(__DIR__ . '/../css/style.css') ?: time() ?>">
+<script src="/js/navigatie.js?v=<?= @filemtime(__DIR__ . '/../js/navigatie.js') ?: time() ?>"></script>
 </head>
 <body>
 <header class="site-header">

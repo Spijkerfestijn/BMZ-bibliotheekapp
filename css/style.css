@@ -112,6 +112,21 @@ main {
     color: var(--kleur-tekst);
 }
 
+.thumb {
+    flex-shrink: 0;
+    width: 40px;
+    height: 56px;
+    object-fit: cover;
+    border: 1px solid var(--kleur-rand);
+    border-radius: 3px;
+    background: #f5f5f5;
+}
+
+.thumb-leeg {
+    display: block;
+    background: linear-gradient(135deg, #f0f0f0, #e2e2e2);
+}
+
 .boekenlijst .naam-wrap {
     display: flex;
     flex-direction: column;
@@ -242,6 +257,69 @@ table.gegevens a {
 .exemplarenlijst a {
     color: var(--kleur-accent-donker);
     font-weight: 600;
+}
+
+.swipe-navigatie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--kleur-rand);
+}
+
+.swipe-knop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--kleur-accent);
+    color: var(--kleur-primair);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.swipe-knop-uit {
+    background: transparent;
+    color: var(--kleur-rand);
+    pointer-events: none;
+}
+
+.swipe-teller {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.knoppen {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 1.25rem 0;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.65rem 1rem;
+    border-radius: 6px;
+    border: none;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    font-family: inherit;
+    cursor: pointer;
+    background: var(--kleur-accent);
+    color: var(--kleur-primair);
+}
+
+.btn-terug {
+    background: var(--kleur-achtergrond);
+    border: 2px solid var(--kleur-accent);
+    color: var(--kleur-accent-donker);
 }
 
 @media (prefers-color-scheme: dark) {

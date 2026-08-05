@@ -8,9 +8,13 @@ $zoekstr = trim($_GET['q'] ?? '');
 
 $resultaten = [];
 $totaalResultaten = 0;
+$navigatieUrls = [];
 if ($zoekstr !== '') {
     $resultaten = zoek_boeken(db_connect(), $zoekstr);
     $totaalResultaten = count($resultaten);
+    foreach ($resultaten as $boek) {
+        $navigatieUrls[] = "/boek.php?id={$boek['Boek_id']}";
+    }
 }
 
 $paginatitel = 'Bibliotheek Bevrijdingsmuseum Zeeland';
@@ -28,6 +32,12 @@ require __DIR__ . '/includes/header.php';
         <?php foreach ($resultaten as $boek): ?>
             <li>
                 <a href="/boek.php?id=<?= (int) $boek['Boek_id'] ?>">
+                    <?php $kaftUrl = kaft_afbeelding_url($boek['Afbeelding'] ?? null); ?>
+                    <?php if ($kaftUrl !== null): ?>
+                        <img class="thumb" src="<?= htmlspecialchars($kaftUrl) ?>" alt="" loading="lazy">
+                    <?php else: ?>
+                        <span class="thumb thumb-leeg" aria-hidden="true"></span>
+                    <?php endif; ?>
                     <span class="naam-wrap">
                         <?php if (!empty($boek['Serie_naam'])): ?>
                             <span class="serie"><?= htmlspecialchars($boek['Serie_naam']) ?> (<?= htmlspecialchars((string) $boek['Volgnr']) ?>)</span>
@@ -47,6 +57,10 @@ require __DIR__ . '/includes/header.php';
             </li>
         <?php endforeach; ?>
     </ul>
+<?php endif; ?>
+
+<?php if ($navigatieUrls !== []): ?>
+    <script>bewaarResultatenLijst(<?= json_encode($navigatieUrls) ?>);</script>
 <?php endif; ?>
 
 <?php require __DIR__ . '/includes/footer.php'; ?>

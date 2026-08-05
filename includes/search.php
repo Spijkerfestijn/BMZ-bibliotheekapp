@@ -5,7 +5,7 @@ const ZOEK_LIMIT = 200;
 function zoek_boeken(PDO $pdo, string $tekst): array
 {
     $kolommen = "Boek_id, Titel, Sub_titel, Auteur, Groepering, Opslag, Taal, ISBN13,
-                 Serie_naam, Volgnr, Naw_id";
+                 Serie_naam, Volgnr, Naw_id, Afbeelding";
     $w = "%$tekst%";
 
     $sql = "SELECT $kolommen FROM jos_BIEB_boeken

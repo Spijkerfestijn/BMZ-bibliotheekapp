@@ -12,10 +12,11 @@ $paginatitel = $boek ? $boek['Titel'] : 'Boek niet gevonden';
 require __DIR__ . '/includes/header.php';
 ?>
 
-<p><a href="/index.php<?= isset($_GET['q']) ? '?q=' . urlencode($_GET['q']) : '' ?>">&larr; Terug naar zoekresultaten</a></p>
-
 <?php if ($boek === null): ?>
     <p class="hint">Dit boek kon niet worden gevonden.</p>
+    <div class="knoppen">
+        <a class="btn btn-terug" href="javascript:history.back()">&larr; Terug naar zoekresultaten</a>
+    </div>
 <?php else: ?>
     <article>
         <?php if (!empty($boek['Serie_naam'])): ?>
@@ -73,7 +74,13 @@ require __DIR__ . '/includes/header.php';
                 <?php endforeach; ?>
             </ul>
         <?php endif; ?>
+
+        <div class="knoppen">
+            <a class="btn btn-terug" href="javascript:history.back()">&larr; Terug naar zoekresultaten</a>
+        </div>
     </article>
+
+    <script>initSwipeNavigatie();</script>
 <?php endif; ?>
 
 <?php require __DIR__ . '/includes/footer.php'; ?>
