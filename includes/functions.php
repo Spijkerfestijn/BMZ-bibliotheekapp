@@ -2,7 +2,7 @@
 
 function soort_omschrijving(?string $soort): string
 {
-    return match ($soort) {
+    $labels = [
         'A' => 'Artikel',
         'B' => '(auto)Biografie',
         'D' => 'Document',
@@ -12,22 +12,25 @@ function soort_omschrijving(?string $soort): string
         'S' => 'Divers',
         'T' => 'Technisch',
         'V' => 'Verhaal',
-        default => 'Onbekend',
-    };
+    ];
+
+    return $labels[$soort] ?? 'Onbekend';
 }
 
 function uitgave_omschrijving(?string $uitgave): string
 {
-    return match ($uitgave) {
+    $labels = [
         'P' => 'Paperback',
-        'H', 'C' => 'Hardcover',
+        'H' => 'Hardcover',
+        'C' => 'Hardcover',
         'T' => 'Tijdschrift',
         'A' => 'Artikel',
         'M' => 'Manuscript',
         'K' => 'Krant',
         'B' => 'Brief/Dagboek',
-        default => 'Anders',
-    };
+    ];
+
+    return $labels[$uitgave] ?? 'Anders';
 }
 
 function opslag_locatie(?string $opslag): string
@@ -75,4 +78,15 @@ function isbn_zoek_url(?string $isbn, string $titel, string $auteur): string
 function uitgeleend(array $boek): bool
 {
     return (int) ($boek['Naw_id'] ?? 0) > 1;
+}
+
+function schoon_omschrijving(?string $ruw): string
+{
+    $tekst = (string) $ruw;
+    $tekst = preg_replace('/<\s*(p|div|br)[^>]*>/i', "\n", $tekst) ?? $tekst;
+    $tekst = strip_tags($tekst);
+    $tekst = html_entity_decode($tekst, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    $tekst = preg_replace('/\n{3,}/', "\n\n", trim($tekst)) ?? $tekst;
+
+    return trim($tekst);
 }

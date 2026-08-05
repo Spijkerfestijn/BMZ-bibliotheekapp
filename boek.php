@@ -61,7 +61,7 @@ require __DIR__ . '/includes/header.php';
         </table>
 
         <?php if (!empty($boek['Omschrijving'])): ?>
-            <div class="omschrijving"><?= nl2br(htmlspecialchars($boek['Omschrijving'])) ?></div>
+            <div class="omschrijving"><?= nl2br(htmlspecialchars(schoon_omschrijving($boek['Omschrijving']))) ?></div>
         <?php endif; ?>
 
         <?php $exemplaren = andere_exemplaren($pdo, (int) ($boek['Basecode'] ?? 0), (int) $boek['Boek_id']); ?>
