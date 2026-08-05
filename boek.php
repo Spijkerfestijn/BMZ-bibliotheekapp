@@ -60,7 +60,15 @@ require __DIR__ . '/includes/header.php';
                     <?php if (!empty($boek['Soort'])): ?>Soort: <?= htmlspecialchars(soort_omschrijving($boek['Soort'])) ?><?php endif; ?>
                 </td>
             </tr>
-            <tr><td>Steekwoorden</td><td><?= htmlspecialchars($boek['Steekwoorden'] ?: '') ?></td></tr>
+            <tr>
+                <td>Steekwoorden</td>
+                <td>
+                    <?php $steekwoorden = array_filter(array_map('trim', explode(';', (string) ($boek['Steekwoorden'] ?? '')))); ?>
+                    <?php foreach ($steekwoorden as $i => $steekwoord): ?>
+                        <?= $i > 0 ? ', ' : '' ?><a href="/index.php?q=<?= urlencode($steekwoord) ?>" title="Zoek boeken met dit trefwoord"><?= htmlspecialchars($steekwoord) ?></a>
+                    <?php endforeach; ?>
+                </td>
+            </tr>
             <tr><td>Opslag</td><td><b><?= htmlspecialchars($boek['Opslag'] ?: '') ?></b> &rarr; <?= htmlspecialchars(opslag_locatie($boek['Opslag'] ?? null)) ?></td></tr>
         </table>
 
