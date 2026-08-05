@@ -68,19 +68,20 @@ require __DIR__ . '/includes/header.php';
             <div class="omschrijving"><?= nl2br(htmlspecialchars(schoon_omschrijving($boek['Omschrijving']))) ?></div>
         <?php endif; ?>
 
-        <?php $exemplaren = andere_exemplaren($pdo, (int) ($boek['Basecode'] ?? 0), (int) $boek['Boek_id']); ?>
+        <?php $exemplaren = andere_exemplaren($pdo, $boek); ?>
 
         <details class="beheer-blok">
             <summary class="btn btn-beheer">Aantal exemplaren &amp; locatie</summary>
-            <p>
-                Dit boek is <b><?= count($exemplaren) + 1 ?>&times;</b> geregistreerd<?= (int) ($boek['Basecode'] ?? 0) > 0 ? ' (basecode ' . (int) $boek['Basecode'] . ')' : ' (geen basecode bekend, dus mogelijk niet alle exemplaren gevonden)' ?>:
-            </p>
-            <ul class="exemplarenlijst">
-                <li><?= htmlspecialchars($boek['Opslag'] ?: 'onbekend') ?> &mdash; dit exemplaar (<?= htmlspecialchars((string) $boek['Boek_id']) ?>)</li>
-                <?php foreach ($exemplaren as $exemplaar): ?>
-                    <li><a href="/boek.php?id=<?= (int) $exemplaar['Boek_id'] ?>&q=<?= urlencode($zoekstr) ?>"><?= htmlspecialchars($exemplaar['Opslag'] ?: 'onbekend') ?> &mdash; <?= htmlspecialchars((string) $exemplaar['Boek_id']) ?></a></li>
-                <?php endforeach; ?>
-            </ul>
+            <?php if ($exemplaren === []): ?>
+                <p>Geen andere exemplaren van dit boek gevonden.</p>
+            <?php else: ?>
+                <p>Nog <b><?= count($exemplaren) ?></b> ander(e) exemplaar/exemplaren van dit boek gevonden:</p>
+                <ul class="exemplarenlijst">
+                    <?php foreach ($exemplaren as $exemplaar): ?>
+                        <li><a href="/boek.php?id=<?= (int) $exemplaar['Boek_id'] ?>&q=<?= urlencode($zoekstr) ?>"><?= htmlspecialchars($exemplaar['Opslag'] ?: 'onbekend') ?> &mdash; <?= htmlspecialchars((string) $exemplaar['Boek_id']) ?></a></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
         </details>
 
         <div class="knoppen">
