@@ -39,9 +39,11 @@ function andere_exemplaren(PDO $pdo, array $boek): array
     // Heeft dit boek zelf geen Basecode, dan is het (mogelijk) het hoofdexemplaar.
     $hoofdId = $eigenBasecode > 0 ? $eigenBasecode : $huidigId;
 
+    // Duplicaat = 'J' betekent alleen dat een kopie verborgen wordt in de gewone
+    // zoekresultaten, niet dat het geen exemplaar is - dus hier bewust niet filteren.
     $stmt = $pdo->prepare(
-        "SELECT Boek_id, Opslag FROM jos_BIEB_boeken
-         WHERE Basecode = ? AND Boek_id <> ? AND Duplicaat <> 'J'
+        "SELECT Boek_id, Opslag, Duplicaat FROM jos_BIEB_boeken
+         WHERE Basecode = ? AND Boek_id <> ?
          ORDER BY Opslag"
     );
     $stmt->execute([$hoofdId, $huidigId]);
@@ -49,7 +51,7 @@ function andere_exemplaren(PDO $pdo, array $boek): array
 
     if ($hoofdId !== $huidigId) {
         $hoofdStmt = $pdo->prepare(
-            "SELECT Boek_id, Opslag FROM jos_BIEB_boeken WHERE Boek_id = ? AND Duplicaat <> 'J' LIMIT 1"
+            "SELECT Boek_id, Opslag, Duplicaat FROM jos_BIEB_boeken WHERE Boek_id = ? LIMIT 1"
         );
         $hoofdStmt->execute([$hoofdId]);
         $hoofdexemplaar = $hoofdStmt->fetch();
