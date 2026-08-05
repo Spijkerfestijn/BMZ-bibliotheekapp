@@ -80,6 +80,15 @@ function boekwinkeltjes_zoek_url(string $titel, string $auteur): string
     return 'https://www.boekwinkeltjes.nl/s/?q=' . urlencode(trim($titel . ' ' . $auteur)) . '&t=1&n=1';
 }
 
+function veilige_terug_url(string $raw, string $default = '/index.php'): string
+{
+    if ($raw === '' || $raw[0] !== '/' || str_starts_with($raw, '//') || str_contains($raw, '://')) {
+        return $default;
+    }
+
+    return $raw;
+}
+
 function uitgeleend(array $boek): bool
 {
     return (int) ($boek['Naw_id'] ?? 0) > 1;

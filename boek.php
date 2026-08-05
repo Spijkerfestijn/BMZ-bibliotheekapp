@@ -6,7 +6,10 @@ require_once __DIR__ . '/includes/search.php';
 
 $boekId = (int) ($_GET['id'] ?? 0);
 $zoekstr = trim($_GET['q'] ?? '');
-$terugUrl = '/index.php' . ($zoekstr !== '' ? '?q=' . urlencode($zoekstr) : '');
+$van = trim($_GET['van'] ?? '');
+$terugUrl = $van !== ''
+    ? veilige_terug_url($van)
+    : '/index.php' . ($zoekstr !== '' ? '?q=' . urlencode($zoekstr) : '');
 
 $pdo = db_connect();
 $boek = $boekId > 0 ? haal_boek($pdo, $boekId) : null;
@@ -86,7 +89,7 @@ require __DIR__ . '/includes/header.php';
                 <p>Nog <b><?= count($exemplaren) ?></b> ander(e) exemplaar/exemplaren van dit boek gevonden:</p>
                 <ul class="exemplarenlijst">
                     <?php foreach ($exemplaren as $exemplaar): ?>
-                        <li><a href="/boek.php?id=<?= (int) $exemplaar['Boek_id'] ?>&q=<?= urlencode($zoekstr) ?>"><?= htmlspecialchars($exemplaar['Opslag'] ?: 'onbekend') ?> &mdash; <?= htmlspecialchars((string) $exemplaar['Boek_id']) ?></a></li>
+                        <li><a href="/boek.php?id=<?= (int) $exemplaar['Boek_id'] ?>&van=<?= urlencode($terugUrl) ?>"><?= htmlspecialchars($exemplaar['Opslag'] ?: 'onbekend') ?> &mdash; <?= htmlspecialchars((string) $exemplaar['Boek_id']) ?></a></li>
                     <?php endforeach; ?>
                 </ul>
             <?php endif; ?>
