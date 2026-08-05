@@ -39,24 +39,25 @@ require __DIR__ . '/includes/header.php';
         <?php endif; ?>
 
         <table class="gegevens">
-            <tr><td>Biebcode</td><td><?= htmlspecialchars((string) $boek['Boek_id']) ?></td></tr>
-            <tr><td>Auteur</td><td><?= htmlspecialchars($boek['Auteur'] ?: '') ?></td></tr>
-            <tr><td>Uitgever</td><td><?= htmlspecialchars($boek['Uitgever'] ?: '') ?></td></tr>
+            <caption class="sr-only">Boekgegevens</caption>
+            <tr><th scope="row">Biebcode</th><td><?= htmlspecialchars((string) $boek['Boek_id']) ?></td></tr>
+            <tr><th scope="row">Auteur</th><td><?= htmlspecialchars($boek['Auteur'] ?: '') ?></td></tr>
+            <tr><th scope="row">Uitgever</th><td><?= htmlspecialchars($boek['Uitgever'] ?: '') ?></td></tr>
             <tr>
-                <td>ISBN</td>
+                <th scope="row">ISBN</th>
                 <td>
                     <a href="<?= htmlspecialchars(isbn_zoek_url($boek['ISBN13'] ?? null, $boek['Titel'], $boek['Auteur'] ?: '')) ?>" target="_blank" rel="noopener" title="Zoeken naar dit ISBN/deze titel op WorldCat">
-                        <?= htmlspecialchars($boek['ISBN13'] ?: 'Zoek op WorldCat') ?>
+                        <?= htmlspecialchars($boek['ISBN13'] ?: 'Zoek op WorldCat') ?><span class="sr-only"> (opent in nieuw tabblad)</span>
                     </a>
                 </td>
             </tr>
             <tr>
-                <td>Taal</td>
+                <th scope="row">Taal</th>
                 <td><img class="vlag" src="<?= htmlspecialchars(taal_vlag_url($boek['Taal'])) ?>" alt="<?= htmlspecialchars($boek['Taal'] ?: '') ?>"></td>
             </tr>
-            <tr><td>Status</td><td><?= uitgeleend($boek) ? 'Uitgeleend' : 'Aanwezig' ?></td></tr>
+            <tr><th scope="row">Status</th><td><?= uitgeleend($boek) ? 'Uitgeleend' : 'Aanwezig' ?></td></tr>
             <tr>
-                <td>Uitgave</td>
+                <th scope="row">Uitgave</th>
                 <td>
                     <?php if (!empty($boek['Uitgave_jaar'])): ?>Jaar: <?= htmlspecialchars((string) $boek['Uitgave_jaar']) ?><br><?php endif; ?>
                     <?php if (!empty($boek['Uitgave'])): ?>Type: <?= htmlspecialchars(uitgave_omschrijving($boek['Uitgave'])) ?><br><?php endif; ?>
@@ -64,7 +65,7 @@ require __DIR__ . '/includes/header.php';
                 </td>
             </tr>
             <tr>
-                <td>Steekwoorden</td>
+                <th scope="row">Steekwoorden</th>
                 <td>
                     <?php $steekwoorden = array_filter(array_map('trim', explode(';', (string) ($boek['Steekwoorden'] ?? '')))); ?>
                     <?php foreach ($steekwoorden as $i => $steekwoord): ?>
@@ -72,7 +73,7 @@ require __DIR__ . '/includes/header.php';
                     <?php endforeach; ?>
                 </td>
             </tr>
-            <tr><td>Opslag</td><td><b><?= htmlspecialchars($boek['Opslag'] ?: '') ?></b> &rarr; <?= htmlspecialchars(opslag_locatie($boek['Opslag'] ?? null)) ?></td></tr>
+            <tr><th scope="row">Opslag</th><td><b><?= htmlspecialchars($boek['Opslag'] ?: '') ?></b> &rarr; <?= htmlspecialchars(opslag_locatie($boek['Opslag'] ?? null)) ?></td></tr>
         </table>
 
         <?php if (!empty($boek['Omschrijving'])): ?>
@@ -101,7 +102,7 @@ require __DIR__ . '/includes/header.php';
             <?php foreach ($auteurs as $auteur): ?>
                 <a class="btn" href="/index.php?q=<?= urlencode($auteur) ?>">Meer van <?= htmlspecialchars($auteur) ?></a>
             <?php endforeach; ?>
-            <a class="btn btn-beheer" href="<?= htmlspecialchars(boekwinkeltjes_zoek_url($boek['Titel'], $boek['Auteur'] ?: '')) ?>" target="_blank" rel="noopener">Zoek op Boekwinkeltjes.nl (prijsbepaling)</a>
+            <a class="btn btn-beheer" href="<?= htmlspecialchars(boekwinkeltjes_zoek_url($boek['Titel'], $boek['Auteur'] ?: '')) ?>" target="_blank" rel="noopener">Zoek op Boekwinkeltjes.nl (prijsbepaling)<span class="sr-only"> (opent in nieuw tabblad)</span></a>
             <a class="btn btn-terug" href="<?= htmlspecialchars($terugUrl) ?>">&larr; Terug naar zoekresultaten</a>
         </div>
     </article>

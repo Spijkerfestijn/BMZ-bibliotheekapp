@@ -12,11 +12,13 @@
 <script src="/js/navigatie.js?v=<?= @filemtime(__DIR__ . '/../js/navigatie.js') ?: time() ?>"></script>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Direct naar inhoud</a>
 <header class="site-header">
     <a href="/" class="site-logo"><img src="/bmz_images/bmz.png" alt="Bevrijdingsmuseum Zeeland"></a>
-    <form class="zoekform" method="get" action="/index.php">
-        <input type="search" name="q" placeholder="Voer een titel, auteur of trefwoord in..." value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
+    <form class="zoekform" method="get" action="/index.php" role="search">
+        <label for="zoekveld" class="sr-only">Zoeken in de bibliotheek</label>
+        <input id="zoekveld" type="search" name="q" placeholder="Voer een titel, auteur of trefwoord in..." value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
         <button type="submit">Zoeken</button>
     </form>
 </header>
-<main>
+<main id="main-content">

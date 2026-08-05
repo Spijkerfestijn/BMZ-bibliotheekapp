@@ -1,15 +1,45 @@
 :root {
     --kleur-primair: #2c3e50;
     --kleur-accent: #ff9a00;
-    --kleur-accent-donker: #cc7a00;
+    --kleur-accent-donker: #a35a00;
     --kleur-rand: #d8d8d8;
     --kleur-tekst: #222;
     --kleur-achtergrond: #fff;
     --kleur-groen: #1d9e75;
+    --kleur-groen-tekst: #085041;
     --kleur-rood: #a32d2d;
 }
 
 * { box-sizing: border-box; }
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.skip-link {
+    position: absolute;
+    left: 0.5rem;
+    top: -3rem;
+    z-index: 100;
+    background: var(--kleur-primair);
+    color: #fff;
+    padding: 0.6rem 1rem;
+    border-radius: 0 0 6px 6px;
+    text-decoration: none;
+    transition: top 0.15s ease-in-out;
+}
+
+.skip-link:focus {
+    top: 0;
+}
 
 body {
     margin: 0;
@@ -99,6 +129,7 @@ main {
 
 .help-link a {
     color: var(--kleur-accent-donker);
+    text-decoration: underline;
 }
 
 .filterform-inklap summary {
@@ -234,8 +265,8 @@ main {
 }
 
 .status-in {
-    color: var(--kleur-groen);
-    background: color-mix(in srgb, var(--kleur-groen) 12%, transparent);
+    color: var(--kleur-groen-tekst);
+    background: color-mix(in srgb, var(--kleur-groen) 15%, transparent);
 }
 
 .status-uit {
@@ -288,15 +319,20 @@ table.gegevens td {
     vertical-align: top;
 }
 
-table.gegevens td:first-child {
+table.gegevens th {
+    text-align: left;
     font-weight: 600;
     width: 35%;
     color: #444;
+    padding: 0.4rem 0.25rem;
+    border-bottom: 1px solid var(--kleur-rand);
+    vertical-align: top;
 }
 
 table.gegevens a {
     color: var(--kleur-accent-donker);
     font-weight: 600;
+    text-decoration: underline;
 }
 
 .omschrijving {
@@ -310,6 +346,7 @@ table.gegevens a {
 .exemplarenlijst a {
     color: var(--kleur-accent-donker);
     font-weight: 600;
+    text-decoration: underline;
 }
 
 .swipe-navigatie {
@@ -398,6 +435,14 @@ table.gegevens a {
     display: none;
 }
 
+.beheer-blok summary::before {
+    content: "\25B8\0020";
+}
+
+.beheer-blok[open] summary::before {
+    content: "\25BE\0020";
+}
+
 .beheer-blok[open] summary {
     margin-bottom: 0.5rem;
 }
@@ -414,6 +459,7 @@ table.gegevens a {
         --kleur-achtergrond: #1b1b1b;
         --kleur-rand: #3a3a3a;
         --kleur-accent-donker: #ffb84d;
+        --kleur-groen-tekst: #5dcaa5;
     }
 
     .boekenlijst a { color: var(--kleur-tekst); }
