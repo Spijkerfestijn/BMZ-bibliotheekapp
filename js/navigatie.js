@@ -12,6 +12,37 @@
         img.replaceWith(span);
     };
 
+    window.initLijstNavigatie = function () {
+        var links = Array.prototype.slice.call(document.querySelectorAll('.boekenlijst > li > a'));
+        if (links.length === 0) {
+            return;
+        }
+
+        function isInvoerveld(el) {
+            return !!el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT');
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') {
+                return;
+            }
+            if (isInvoerveld(document.activeElement)) {
+                return;
+            }
+
+            e.preventDefault();
+
+            var huidigeIndex = links.indexOf(document.activeElement);
+            var volgendeIndex;
+            if (e.key === 'ArrowDown') {
+                volgendeIndex = huidigeIndex === -1 ? 0 : Math.min(huidigeIndex + 1, links.length - 1);
+            } else {
+                volgendeIndex = huidigeIndex === -1 ? links.length - 1 : Math.max(huidigeIndex - 1, 0);
+            }
+            links[volgendeIndex].focus();
+        });
+    };
+
     window.bewaarResultatenLijst = function (urls) {
         try {
             sessionStorage.setItem(SLEUTEL, JSON.stringify(urls));

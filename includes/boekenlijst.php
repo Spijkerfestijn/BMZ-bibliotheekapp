@@ -33,6 +33,7 @@ foreach ($resultaten as $boek) {
         </li>
     <?php endforeach; ?>
 </ul>
+<script>initLijstNavigatie();</script>
 <?php if ($navigatieUrls !== []): ?>
     <script>bewaarResultatenLijst(<?= json_encode($navigatieUrls) ?>);</script>
 <?php endif; ?>
