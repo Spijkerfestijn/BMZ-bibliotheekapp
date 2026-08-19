@@ -33,10 +33,7 @@ require __DIR__ . '/includes/header.php';
             <p class="subtitel"><?= htmlspecialchars($boek['subtitle']) ?></p>
         <?php endif; ?>
 
-        <?php $kaftUrl = kaft_afbeelding_url($boek['cover_image'] ?? null); ?>
-        <?php if ($kaftUrl !== null): ?>
-            <img class="kaft" src="<?= htmlspecialchars($kaftUrl) ?>" alt="Omslag van <?= htmlspecialchars($boek['title']) ?>">
-        <?php endif; ?>
+        <img class="kaft" src="<?= htmlspecialchars(kaft_afbeelding_url((int) $boek['id'])) ?>" alt="Omslag van <?= htmlspecialchars($boek['title']) ?>" onerror="kaftFout(this, 'verwijder')">
 
         <table class="gegevens">
             <caption class="sr-only">Boekgegevens</caption>

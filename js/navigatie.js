@@ -1,6 +1,17 @@
 (function () {
     var SLEUTEL = 'boekenResultatenLijst';
 
+    window.kaftFout = function (img, modus) {
+        if (modus === 'verwijder') {
+            img.remove();
+            return;
+        }
+        var span = document.createElement('span');
+        span.className = 'thumb thumb-leeg';
+        span.setAttribute('aria-hidden', 'true');
+        img.replaceWith(span);
+    };
+
     window.bewaarResultatenLijst = function (urls) {
         try {
             sessionStorage.setItem(SLEUTEL, JSON.stringify(urls));

@@ -13,12 +13,7 @@ foreach ($resultaten as $boek) {
     <?php foreach ($resultaten as $boek): ?>
         <li>
             <a href="/boek.php?id=<?= (int) $boek['id'] ?>&van=<?= urlencode($terugUrl) ?>">
-                <?php $kaftUrl = kaft_afbeelding_url($boek['cover_image'] ?? null); ?>
-                <?php if ($kaftUrl !== null): ?>
-                    <img class="thumb" src="<?= htmlspecialchars($kaftUrl) ?>" alt="" loading="lazy">
-                <?php else: ?>
-                    <span class="thumb thumb-leeg" aria-hidden="true"></span>
-                <?php endif; ?>
+                <img class="thumb" src="<?= htmlspecialchars(kaft_afbeelding_url((int) $boek['id'])) ?>" alt="" loading="lazy" onerror="kaftFout(this)">
                 <span class="naam-wrap">
                     <?php if (!empty($boek['series_name'])): ?>
                         <span class="serie"><?= htmlspecialchars($boek['series_name']) ?> (<?= htmlspecialchars((string) $boek['series_number']) ?>)</span>

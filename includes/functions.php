@@ -7,14 +7,9 @@ function taal_vlag_url(?string $taalCode): string
     return 'https://beheerbieb.bevrijdingsmuseumzeeland.nl/components/com_hvd_bieb/images/vlag/' . rawurlencode($taalCode) . '.png';
 }
 
-function kaft_afbeelding_url(?string $bestand): ?string
+function kaft_afbeelding_url(int $boekId): string
 {
-    $bestand = trim((string) $bestand);
-    if ($bestand === '') {
-        return null;
-    }
-
-    return 'https://beheerbieb.bevrijdingsmuseumzeeland.nl/images/stories/hvd_bieb/kaftfoto/' . rawurlencode($bestand);
+    return 'https://beheerbieb.bevrijdingsmuseumzeeland.nl/images/stories/hvd_bieb/kaftfoto/img-' . $boekId . '-01.jpg';
 }
 
 function isbn_zoek_url(?string $isbn, string $titel, string $auteur): string
