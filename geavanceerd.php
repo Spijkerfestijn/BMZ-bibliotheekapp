@@ -43,7 +43,7 @@ require __DIR__ . '/includes/header.php';
         <select name="categorie">
             <option value="">Alle</option>
             <?php foreach (categorieen($pdo) as $categorie): ?>
-                <option value="<?= htmlspecialchars($categorie) ?>" <?= $filters['categorie'] === $categorie ? 'selected' : '' ?>><?= htmlspecialchars($categorie) ?></option>
+                <option value="<?= (int) $categorie['id'] ?>" <?= $filters['categorie'] === (string) $categorie['id'] ? 'selected' : '' ?>><?= htmlspecialchars($categorie['name']) ?></option>
             <?php endforeach; ?>
         </select>
     </label>

@@ -6,32 +6,32 @@
 
 $navigatieUrls = [];
 foreach ($resultaten as $boek) {
-    $navigatieUrls[] = "/boek.php?id={$boek['Boek_id']}&van=" . urlencode($terugUrl);
+    $navigatieUrls[] = "/boek.php?id={$boek['id']}&van=" . urlencode($terugUrl);
 }
 ?>
 <ul class="resultatenlijst boekenlijst">
     <?php foreach ($resultaten as $boek): ?>
         <li>
-            <a href="/boek.php?id=<?= (int) $boek['Boek_id'] ?>&van=<?= urlencode($terugUrl) ?>">
-                <?php $kaftUrl = kaft_afbeelding_url($boek['Afbeelding'] ?? null); ?>
+            <a href="/boek.php?id=<?= (int) $boek['id'] ?>&van=<?= urlencode($terugUrl) ?>">
+                <?php $kaftUrl = kaft_afbeelding_url($boek['cover_image'] ?? null); ?>
                 <?php if ($kaftUrl !== null): ?>
                     <img class="thumb" src="<?= htmlspecialchars($kaftUrl) ?>" alt="" loading="lazy">
                 <?php else: ?>
                     <span class="thumb thumb-leeg" aria-hidden="true"></span>
                 <?php endif; ?>
                 <span class="naam-wrap">
-                    <?php if (!empty($boek['Serie_naam'])): ?>
-                        <span class="serie"><?= htmlspecialchars($boek['Serie_naam']) ?> (<?= htmlspecialchars((string) $boek['Volgnr']) ?>)</span>
+                    <?php if (!empty($boek['series_name'])): ?>
+                        <span class="serie"><?= htmlspecialchars($boek['series_name']) ?> (<?= htmlspecialchars((string) $boek['series_number']) ?>)</span>
                     <?php endif; ?>
-                    <span class="naam"><?= htmlspecialchars($boek['Titel']) ?></span>
-                    <?php if (!empty($boek['Sub_titel'])): ?>
-                        <span class="subtitel"><?= htmlspecialchars($boek['Sub_titel']) ?></span>
+                    <span class="naam"><?= htmlspecialchars($boek['title']) ?></span>
+                    <?php if (!empty($boek['subtitle'])): ?>
+                        <span class="subtitel"><?= htmlspecialchars($boek['subtitle']) ?></span>
                     <?php endif; ?>
-                    <span class="auteur"><?= htmlspecialchars($boek['Auteur'] ?: '') ?></span>
+                    <span class="auteur"><?= htmlspecialchars($boek['author'] ?: '') ?></span>
                 </span>
                 <span class="boek-meta">
-                    <img class="vlag" src="<?= htmlspecialchars(taal_vlag_url($boek['Taal'])) ?>" alt="<?= htmlspecialchars($boek['Taal'] ?: '') ?>">
-                    <span class="opslag"><?= htmlspecialchars($boek['Opslag'] ?: '') ?></span>
+                    <img class="vlag" src="<?= htmlspecialchars(taal_vlag_url($boek['taal_code'] ?? null)) ?>" alt="<?= htmlspecialchars($boek['taal_code'] ?? '') ?>">
+                    <span class="opslag"><?= htmlspecialchars($boek['opslag_code'] ?: '') ?></span>
                     <span class="status status-<?= uitgeleend($boek) ? 'uit' : 'in' ?>"><?= uitgeleend($boek) ? 'Uitgeleend' : 'Aanwezig' ?></span>
                 </span>
             </a>
